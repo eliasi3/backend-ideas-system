@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  idea_name: MyString
+  idea_description: MyString
+  category: one
+  mission: one
+  user: one
+
+two:
+  idea_name: MyString
+  idea_description: MyString
+  category: two
+  mission: two
+  user: two

@@ -10,6 +10,6 @@ class AuthController < ApplicationController
         else
           render json: { error: 'error' }, status: :unauthorized 
         end
-    end
+  end
   
 end

@@ -5,7 +5,8 @@ class MissionsController < ApplicationController
   def index
     @missions = Mission.all
 
-    render json: @missions
+    render json: @missions.to_json(:include => [:user, :dept]), status: :ok
+    
   end
 
   # GET /missions/1

@@ -11,7 +11,7 @@ class MissionsController < ApplicationController
 
   # GET /missions/1
   def show
-    render json: @mission
+    render json: @mission.to_json(:include => [:user, :dept]), status: :ok
   end
 
   # POST /missions

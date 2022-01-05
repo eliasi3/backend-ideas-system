@@ -2,11 +2,33 @@ class IdeasController < ApplicationController
   before_action :set_idea, only: [:show, :update, :destroy]
 
   # GET /ideas
-  def index
-    @ideas = Idea.all
+  # def index
+  #   @ideas = Idea.all
 
+  #   render json: @ideas.to_json(:include => [:user, :category, :mission]), status: :ok
+  # end
+
+  def index
+    if (params[:mission_id])
+         @ideas = Idea.where(mission_id: params[:mission_id])
+      else
+         @ideas = Idea.all
+    end
     render json: @ideas.to_json(:include => [:user, :category, :mission]), status: :ok
   end
+
+
+  # def index
+  #   # @livros = Livro.where(author: params[:author])
+  #   if (params[:author])
+  #     @livros = Livro.where(author: params[:author]);
+  #   else
+  #     @livros = Livro.all;
+      
+  #   end
+  #   render json: { data: @livros }, status: :ok
+  #   # @livros = Livro.all
+  # end
 
   # GET /ideas/1
   def show

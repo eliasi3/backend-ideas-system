@@ -2,10 +2,18 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
   
   # GET /users
+  # def index
+  #   @users = User.all
+  #   render json: @users.to_json(:include => :dept), status: :ok
+  #   # render json: { user: @users }, status: :ok
+  # end
   def index
-    @users = User.all
-    render json: @users.to_json(:include => :dept), status: :ok
-    # render json: { user: @users }, status: :ok
+    if (params[:dept_id])
+         @users = User.where(dept_id: params[:dept_id])
+      else
+         @users = User.all
+    end
+    render json:@users.to_json(:include => :dept), status: :ok
   end
 
   # GET /users/1

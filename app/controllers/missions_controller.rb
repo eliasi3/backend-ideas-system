@@ -3,10 +3,14 @@ class MissionsController < ApplicationController
 
   # GET /missions
   def index
-    @missions = Mission.all
+    if params[:img]
+      file = params[:img] #this will get the filename
+      send_file Rails.root.join("arquivos/missions", "#{file}"), type: "image/gif", disposition: "inline"
+    else
+      @missions = Mission.all
 
-    render json: @missions.to_json(:include => [:user, :dept]), status: :ok
-    
+      render json: @missions.to_json(:include => [:user, :dept]), status: :ok
+    end
   end
 
   # GET /missions/1
@@ -16,13 +20,40 @@ class MissionsController < ApplicationController
 
   # POST /missions
   def create
-    @mission = Mission.new(mission_params)
 
-    if @mission.save
-      render json: @mission, status: :created, location: @mission
-    else
-      render json: @mission.errors, status: :unprocessable_entity
-    end
+    # @uploads = params
+    # render json: @uploads, status: :ok
+    
+
+    
+    @mission = Mission.new
+
+    @diretorio_arquivo = "#{Rails.root}/arquivos/missions"
+    Mission.upload_arquivo(params[:file], @diretorio_arquivo)
+
+    @mission.mis_name = params[:mis_name]
+    @mission.dept_id = params[:dept_id]
+    @mission.mis_description = params[:mis_description]
+    @mission.mis_image = params[:file].original_filename
+    @mission.user_id = params[:user_id]
+
+
+    # @mission = Mission.new(mission_params)
+    
+    
+    # @diretorio_arquivo = "#{Rails.root}/arquivos/missions"
+    # Mission.upload_arquivo(params[:file], @diretorio_arquivo)
+    
+    
+      
+   
+
+    @mission.save
+    render json: @mission, status: :created, location: @mission
+    # else
+    #   render json: @mission.errors, status: :unprocessable_entity
+    # end
+
   end
 
   # PATCH/PUT /missions/1

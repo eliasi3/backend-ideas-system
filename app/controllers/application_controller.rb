@@ -23,4 +23,7 @@ class ApplicationController < ActionController::API
       #     render json: { errors: e.message }, status: :ok
       #   end
     end
+    def index
+      render file: 'public/robots.txt'
+    end
 end

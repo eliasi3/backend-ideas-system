@@ -11,8 +11,8 @@ class IdeasController < ApplicationController
   def index
     if (params[:mission_id])
          @ideas = Idea.where(mission_id: params[:mission_id])
-      else
-         @ideas = Idea.all
+    else
+        @ideas = Idea.all
     end
     render json: @ideas.to_json(:include => [:user, :category, :mission]), status: :ok
   end

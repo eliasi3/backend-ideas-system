@@ -6,11 +6,12 @@ class MissionsController < ApplicationController
     if params[:img]
       file = params[:img] #this will get the filename
       send_file Rails.root.join("arquivos/missions", "#{file}"), type: "image/gif", disposition: "inline"
+    
     else
       @missions = Mission.all
-
       render json: @missions.to_json(:include => [:user, :dept]), status: :ok
     end
+
   end
 
   # GET /missions/1

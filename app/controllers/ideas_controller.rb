@@ -9,11 +9,24 @@ class IdeasController < ApplicationController
   # end
 
   def index
-    if (params[:mission_id])
-         @ideas = Idea.where(mission_id: params[:mission_id])
-    else
-        @ideas = Idea.all
+    @str = 'id > 0'
+    @count = ''
+
+    if (!params[:mission_id].blank?)
+        @str += ' AND mission_id='+ params[:mission_id]
     end
+    if (!params[:category_id].blank?)
+        @str += ' AND category_id='+ params[:category_id] 
+    end
+    if (!params[:search].blank?)
+        @str += " AND (UPPER(idea_description) LIKE '%"+params[:search].upcase+"%' OR UPPER(idea_name) LIKE '%"+params[:search].upcase+"%')"
+    end
+    if (!params[:page].blank?)
+      @ideas = Idea.where(@str).limit(2).offset(params[:page].to_i*2)
+    else
+      @ideas = Idea.where(@str)
+    end  
+      @count = Idea.where(@str).count
     render json: @ideas.to_json(:include => [:user, :category, :mission]), status: :ok
   end
 

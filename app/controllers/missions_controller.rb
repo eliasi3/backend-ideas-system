@@ -13,6 +13,9 @@ class MissionsController < ApplicationController
         @str += ' AND dept_id='+ params[:dept_id]
  
     end
+    if (!params[:search].blank?)
+      @str += " AND (UPPER(mis_name) LIKE '%"+params[:search].upcase+"%' OR UPPER(mis_description) LIKE '%"+params[:search].upcase+"%')"
+     end
       @missions = Mission.where(@str)
       render json: @missions.to_json(:include => [:user, :dept]), status: :ok
 

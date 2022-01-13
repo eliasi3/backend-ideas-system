@@ -16,6 +16,9 @@ class UsersController < ApplicationController
     if (!params[:dept_id].blank?)
       @str += ' AND dept_id='+ params[:dept_id]
     end
+    if (!params[:search].blank?)
+      @str += " AND (UPPER(user_name) LIKE '%"+params[:search].upcase+"%' OR UPPER(username) LIKE '%"+params[:search].upcase+"%')"
+    end
     
     @users = User.where(@str)
     render json:@users.to_json(:include => :dept), status: :ok

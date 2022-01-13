@@ -10,7 +10,6 @@ class IdeasController < ApplicationController
 
   def index
     @str = 'id > 0'
-    @count = ''
 
     if (!params[:mission_id].blank?)
         @str += ' AND mission_id='+ params[:mission_id]
@@ -26,7 +25,7 @@ class IdeasController < ApplicationController
     else
       @ideas = Idea.where(@str)
     end  
-      @count = Idea.where(@str).count
+
     render json: @ideas.to_json(:include => [:user, :category, :mission]), status: :ok
   end
 

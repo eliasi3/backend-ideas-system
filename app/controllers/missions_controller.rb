@@ -3,14 +3,18 @@ class MissionsController < ApplicationController
 
   # GET /missions
   def index
+    @str = 'id > 0'
+    
     if params[:img]
       file = params[:img] #this will get the filename
       send_file Rails.root.join("arquivos/missions", "#{file}"), type: "image/gif", disposition: "inline"
-    
-    else
-      @missions = Mission.all
-      render json: @missions.to_json(:include => [:user, :dept]), status: :ok
     end
+    if (!params[:dept_id].blank?)
+        @str += ' AND dept_id='+ params[:dept_id]
+ 
+    end
+      @missions = Mission.where(@str)
+      render json: @missions.to_json(:include => [:user, :dept]), status: :ok
 
   end
 

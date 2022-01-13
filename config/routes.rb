@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :depts
   
   post '/auth' => 'auth#login'
+  get "/uploads", :to => 'uploads#show'
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

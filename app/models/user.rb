@@ -10,9 +10,16 @@ class User < ApplicationRecord
   # def password_digest
   #   @password_digest ||= Password.new(password_hash)
   # end
+  after_create :welcome_mail
+  # after_show :reset_password
 
-  # def password_digest=(new_password)
-  #   @password_digest = Password.create(new_password)
-  #   self.password_hash = @password_digest
-  # end
+  private
+
+  def welcome_mail
+    UserMailer.welcome_email(self).deliver_now
+  end
+
+  def reset_password
+    UserMailer.recuperar_senha(self).deliver_now
+  end
 end

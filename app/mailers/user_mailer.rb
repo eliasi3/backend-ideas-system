@@ -1,9 +1,12 @@
 class UserMailer < ApplicationMailer
-    default from: 'dinoghost11@gmail.com'
 
-  def welcome_email
-    @user = params[:user]
-    @url  = 'http://exemplo.com/login'
+  def welcome_email(user)
+    @user = user
     mail(to: @user.email, subject: 'Boas vindas ao nosso incrível site!')
+  end
+  
+  def recuperar_senha(user)
+    @user = user
+    mail(to: @user.email, subject: 'Recuperação de senha!')
   end
 end

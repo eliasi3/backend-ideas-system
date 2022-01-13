@@ -1,12 +1,11 @@
 class ResetPasswordController < ApplicationController
   #GET /reset_password
   def index
-    @str = 'id > 0'
-
-    if (!params[:email].blank?)
-      @str += " AND email="+ "'"+params[:email]+"'"
+    @email = params[:email]
+    @user = User.where(email: @email)
     
-    @user = User.where(@str)
-    render json:@user.to_json(:include => :dept), status: :ok
+    User.reset_password(params[:email])
+    
+    render json: @user.to_json(:include => :dept), status: :ok
   end
 end

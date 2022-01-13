@@ -9,12 +9,18 @@ class CommentsController < ApplicationController
   # end
 
   def index
-    if (params[:idea_id])
-         @comments = Comment.where(idea_id: params[:idea_id])
+    @str = 'id > 0'
+
+    if params[:img]
+      file = params[:img] #this will get the filename
+      send_file Rails.root.join("arquivos/comments", "#{file}"), type: "image/gif", disposition: "inline"
     else
-        @comments = Comment.all
+      if (!params[:idea_id].blank?)
+        @str += ' AND idea_id='+ params[:idea_id]
     end
-    render json: @comments.to_json(:include => [:user, :idea]), status: :ok
+      @comments = Comment.where(@str)
+      render json: @comments.to_json(:include => [:user, :idea]), status: :ok
+  end
   end
 
 
@@ -25,13 +31,19 @@ class CommentsController < ApplicationController
 
   # POST /comments
   def create
-    @comment = Comment.new(comment_params)
+    @comment = Comment.new
 
-    if @comment.save
+    @diretorio_arquivo = "#{Rails.root}/arquivos/comments"
+    Comment.upload_arquivo(params[:file], @diretorio_arquivo)
+
+      @comment.com_description = params[:com_description]
+      @comment.idea_id = params[:idea_id]
+      @comment.com_image = params[:file].original_filename
+      @comment.user_id = params[:user_id]
+
+
+    @comment.save
       render json: @comment, status: :created, location: @comment
-    else
-      render json: @comment.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT /comments/1

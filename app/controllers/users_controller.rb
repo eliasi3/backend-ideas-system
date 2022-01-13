@@ -8,11 +8,16 @@ class UsersController < ApplicationController
   #   # render json: { user: @users }, status: :ok
   # end
   def index
-    if (params[:dept_id])
-         @users = User.where(dept_id: params[:dept_id])
-      else
-         @users = User.all
+    @str = 'id > 0'
+
+    if (!params[:email].blank?)
+      @str += " AND email="+ "'"+params[:email]+"'"
     end
+    if (!params[:dept_id].blank?)
+      @str += ' AND dept_id='+ params[:dept_id]
+    end
+    
+    @users = User.where(@str)
     render json:@users.to_json(:include => :dept), status: :ok
   end
 

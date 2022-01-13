@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   belongs_to :dept
   has_many :mission
-  has_secure_password validations: false
+  has_secure_password
 
   
   after_create :welcome_mail

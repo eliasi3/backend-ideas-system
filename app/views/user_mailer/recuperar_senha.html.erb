@@ -1,8 +1,6 @@
 Olá <%= @user.user_name %>, esqueceu a senha do seu usuário?<br>
 ===============================================
 <br>
-sua senha de login é: <%= @user.password_digest %>.
-<br>
-Para iniciar sua seção, <%= link_to "clique aqui", "http://localhost:8080/#/" %>
+<%= link_to "clique aqui", "http://localhost:8080/#/resetpassword?id=6FF213ssa213fFGD22g349#{@user.id}" %>, para atualizar sua senha!
 <br><br>
 Esperamos ter lhe ajudado! Tenha um ótimo dia!

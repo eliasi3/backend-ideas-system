@@ -15,10 +15,12 @@ class MissionsController < ApplicationController
       if (!params[:search].blank?)
         @str += " AND (UPPER(mis_name) LIKE '%"+params[:search].upcase+"%' OR UPPER(mis_description) LIKE '%"+params[:search].upcase+"%')"
       end
-
+      if (!params[:page].blank?)
+        @missions = Mission.where(@str).limit(2).offset(params[:page].to_i*2)
+      else
       @missions = Mission.where(@str)
-      render json: @missions.to_json(:include => [:user, :dept]), status: :ok
-      
+    end
+    render json: @missions.to_json(:include => [:user, :dept]), status: :ok
     end  
   end
 

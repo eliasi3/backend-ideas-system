@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  get 'reset_password/index'
   resources :uploads
   resources :comments
   resources :idea_files

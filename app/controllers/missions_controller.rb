@@ -3,7 +3,7 @@ class MissionsController < ApplicationController
 
   # GET /missions
   def index
-    @str = 'id > 0'
+    @str = 'id > 0 AND ies_ativo = 1'
     
     if params[:img]
       file = params[:img] #this will get the filename
@@ -47,6 +47,10 @@ class MissionsController < ApplicationController
     @mission.mis_description = params[:mis_description]
     @mission.mis_image = params[:file].original_filename
     @mission.user_id = params[:user_id]
+
+    @mission.ies_ativo = params[:ies_ativo]
+    @mission.ies_multi = params[:ies_multi]
+    @mission.dat_limite = params[:dat_limite]
 
 
     # @mission = Mission.new(mission_params)

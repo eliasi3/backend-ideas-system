@@ -31,11 +31,6 @@ class MissionsController < ApplicationController
 
   # POST /missions
   def create
-
-    # @uploads = params
-    # render json: @uploads, status: :ok
-    
-
     
     @mission = Mission.new
 
@@ -50,24 +45,11 @@ class MissionsController < ApplicationController
 
     @mission.ies_ativo = params[:ies_ativo]
     @mission.ies_multi = params[:ies_multi]
-    @mission.dat_limite = params[:dat_limite]
-
-
-    # @mission = Mission.new(mission_params)
-    
-    
-    # @diretorio_arquivo = "#{Rails.root}/arquivos/missions"
-    # Mission.upload_arquivo(params[:file], @diretorio_arquivo)
-    
-    
-      
+    @mission.dat_limite = params[:dat_limite]   
    
 
     @mission.save
     render json: @mission, status: :created, location: @mission
-    # else
-    #   render json: @mission.errors, status: :unprocessable_entity
-    # end
 
   end
 

@@ -3,9 +3,17 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.all
+    @str = 'id > 0'
 
-    render json: @categories
+    if (!params[:search].blank?)
+      @str += " AND (UPPER(cat_name)) LIKE '%"+params[:search].upcase+"%' "
+    end
+    if (!params[:page].blank?)
+      @categories = Category.where(@str).limit(2).offset(params[:page].to_i*2)
+    else
+      @categories = Category.where(@str)
+    end
+    render json: @categories, status: :ok
   end
 
   # GET /categories/1

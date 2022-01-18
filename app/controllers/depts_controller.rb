@@ -3,10 +3,18 @@ class DeptsController < ApplicationController
 
   # GET /depts
   def index
-    @depts = Dept.all
-    # render json: { depts:@depts }
-    render json: @depts, status: :ok
+    @str = 'id > 0'
+
+  if (!params[:search].blank?)
+    @str += " AND (UPPER(dep_name) LIKE '%"+params[:search].upcase+"%' OR UPPER(dep_name) LIKE '%"+params[:search].upcase+"%')"
   end
+  if (!params[:page].blank?)
+    @depts = Dept.where(@str).limit(2).offset(params[:page].to_i*2)
+  else
+      @depts= Dept.where(@str)
+  end  
+  render json: @depts, status: :ok
+end
 
   # GET /depts/1
   def show

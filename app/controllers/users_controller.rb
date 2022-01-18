@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   #   # render json: { user: @users }, status: :ok
   # end
   def index
-    @str = 'id > 0'
+    @str = 'id > 0 AND ies_ativo = 1'
 
     if (!params[:email].blank?)
       @str += " AND email="+ "'"+params[:email]+"'"
@@ -22,7 +22,7 @@ class UsersController < ApplicationController
     if (!params[:page].blank?)
       @users = User.where(@str).limit(2).offset(params[:page].to_i*2)
     else
-    @users = User.where(@str)
+      @users = User.where(@str)
     end
 
     render json:@users.to_json(:include => :dept), status: :ok
@@ -67,6 +67,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :user_name, :email, :password, :user_phone, :dept_id)
+      params.require(:user).permit(:username, :user_name, :email, :password, :user_phone, :ies_ativo, :dept_id)
     end
 end

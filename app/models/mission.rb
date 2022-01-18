@@ -10,3 +10,5 @@ class Mission < ApplicationRecord
 
   end
 end
+
+

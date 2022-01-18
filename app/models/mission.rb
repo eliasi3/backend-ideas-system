@@ -9,6 +9,8 @@ class Mission < ApplicationRecord
     File.open(File.join(diretorio, arquivo.original_filename), "wb") { |f| f.write(arquivo.read) }
 
   end
+
+  
 end
 
 

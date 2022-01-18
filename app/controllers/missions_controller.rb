@@ -46,10 +46,21 @@ class MissionsController < ApplicationController
     @mission.ies_ativo = params[:ies_ativo]
     @mission.ies_multi = params[:ies_multi]
     @mission.dat_limite = params[:dat_limite]   
-   
-
+    
     @mission.save
-    render json: @mission, status: :created, location: @mission
+    
+    @deptos = params[:mission_deptos].split(',')
+    @deptos.each do |dept_id| 
+
+      if(!dept_id.empty?)
+        @mission_deptos = MissionDepto.new
+        @mission_deptos.mission_id = @mission.id
+        @mission_deptos.dept_id = dept_id
+        @mission_deptos.save
+      end
+    end
+
+    render json: @mission, status: :created
 
   end
 

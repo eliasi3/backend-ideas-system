@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_14_125809) do
+ActiveRecord::Schema.define(version: 2022_01_17_115639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,15 @@ ActiveRecord::Schema.define(version: 2022_01_14_125809) do
     t.index ["user_id"], name: "index_ideas_on_user_id"
   end
 
+  create_table "mission_deptos", force: :cascade do |t|
+    t.bigint "mission_id", null: false
+    t.bigint "dept_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["dept_id"], name: "index_mission_deptos_on_dept_id"
+    t.index ["mission_id"], name: "index_mission_deptos_on_mission_id"
+  end
+
   create_table "missions", force: :cascade do |t|
     t.string "mis_name"
     t.string "mis_description"
@@ -128,6 +137,8 @@ ActiveRecord::Schema.define(version: 2022_01_14_125809) do
   add_foreign_key "ideas", "categories"
   add_foreign_key "ideas", "missions"
   add_foreign_key "ideas", "users"
+  add_foreign_key "mission_deptos", "depts"
+  add_foreign_key "mission_deptos", "missions"
   add_foreign_key "missions", "depts"
   add_foreign_key "missions", "users"
   add_foreign_key "users", "depts"

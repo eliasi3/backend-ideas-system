@@ -40,7 +40,7 @@ class MissionsController < ApplicationController
     @mission.mis_name = params[:mis_name]
     @mission.dept_id = params[:dept_id]
     @mission.mis_description = params[:mis_description]
-    @mission.mis_image = params[:file].original_filename
+    @mission.mis_image = params[:file]
     @mission.user_id = params[:user_id]
 
     @mission.ies_ativo = params[:ies_ativo]
@@ -51,7 +51,7 @@ class MissionsController < ApplicationController
     
     @deptos = params[:mission_deptos].split(',')
     @deptos.each do |dept_id| 
-
+      
       if(!dept_id.empty?)
         @mission_deptos = MissionDepto.new
         @mission_deptos.mission_id = @mission.id

@@ -49,31 +49,13 @@ class IdeasController < ApplicationController
 
   # POST /ideas
   def create
-    @idea = Idea.new
+    @idea = Idea.new(idea_params)
 
-    
-    @idea.idea_name = params[:idea_name]
-    @idea.idea_description = params[:idea_description]
-    @idea.category_id = params[:category_id]
-    @idea.mission_id = params[:mission_id]
-    @idea.user_id = params[:user_id]
-    
-    
-    @idea.save
-    
-    
-    @files = params[:file]
-    @files.each do |fil| 
-      
-      @idea_file = IdeaFile.new
-    # # @diretorio_arquivo = "#{Rails.root}/arquivos/ideas"
-    # # IdeaFile.upload_arquivo(file, @diretorio_arquivo)
-      @idea_file.idea_id = @idea.id
-      @idea_file.idea_file = fil
-      @idea_file.save
-
+    if @idea.save
+      render json: @idea, status: :created, location: @idea
+    else
+      render json: @idea.errors, status: :unprocessable_entity
     end
-      render json: @idea, status: :created
   end
 
   # PATCH/PUT /ideas/1

@@ -3,9 +3,20 @@ class IdeaFilesController < ApplicationController
 
   # GET /idea_files
   def index
-    @idea_files = IdeaFile.all
+    @str = 'id > 0'
 
+    if params[:img]
+      file = params[:img] #this will get the filename
+      send_file Rails.root.join("arquivos/ideas", "#{file}"), type: "image/gif", disposition: "inline"
+    else
+      if (!params[:idea_id].blank?)
+        @str += ' AND  idea_id='+ params[:idea_id]
+      end
+      
+    @idea_files = IdeaFile.where(@str)
     render json: @idea_files
+
+    end
   end
 
   # GET /idea_files/1

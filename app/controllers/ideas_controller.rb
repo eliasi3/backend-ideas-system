@@ -61,10 +61,6 @@ class IdeasController < ApplicationController
     @idea.save
     
 
-    
-
-    
-
     @count = params[:count].to_i
     @parf = :file_
 

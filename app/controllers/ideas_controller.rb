@@ -20,8 +20,11 @@ class IdeasController < ApplicationController
     if (!params[:search].blank?)
         @str += " AND (UPPER(idea_description) LIKE '%"+params[:search].upcase+"%' OR UPPER(idea_name) LIKE '%"+params[:search].upcase+"%')"
     end
+    if (!params[:ies_status].blank?)
+      @str += " AND (UPPER(ies_status) LIKE '%"+params[:ies_status].upcase+"%' OR UPPER(ies_status) LIKE '%"+params[:ies_status].upcase+"%')"
+    end
     if (!params[:page].blank?)
-      @ideas = Idea.where(@str).limit(2).offset(params[:page].to_i*2)
+      @ideas = Idea.where(@str).limit(6).offset(params[:page].to_i*6)
     else
       @ideas = Idea.where(@str)
     end  
@@ -57,6 +60,7 @@ class IdeasController < ApplicationController
     @idea.category_id = params[:category_id]
     @idea.mission_id = params[:mission_id]
     @idea.user_id = params[:user_id]
+    @idea.ies_status = params[:ies_status]
     
     @idea.save
     
@@ -89,6 +93,8 @@ class IdeasController < ApplicationController
     else
       render json: @idea.errors, status: :unprocessable_entity
     end
+    # ies = idea_params
+    # render json: ies, status: :ok
   end
 
   # DELETE /ideas/1
@@ -104,6 +110,6 @@ class IdeasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def idea_params
-      params.require(:idea).permit(:idea_name, :idea_description, :category_id, :mission_id, :user_id)
+      params.require(:idea).permit(:idea_name, :idea_description, :category_id, :mission_id, :user_id, :ies_status, :razao_id)
     end
 end

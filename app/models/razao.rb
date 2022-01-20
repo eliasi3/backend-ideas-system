@@ -1,0 +1,2 @@
+class Razao < ApplicationRecord
+end

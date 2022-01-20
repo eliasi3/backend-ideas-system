@@ -65,17 +65,16 @@ class IdeasController < ApplicationController
     @parf = :file_
 
     @x = 0
-    @n = 0
     while @x < @count
 
-      @files = params["#{@parf}#{@n}"]
+      @files = params["#{@parf}#{@x}"]
       @idea_file = IdeaFile.new
      @diretorio_arquivo = "#{Rails.root}/arquivos/ideas"
      IdeaFile.upload_arquivo(@files, @diretorio_arquivo)
       @idea_file.idea_id = @idea.id
       @idea_file.idea_file = @files.original_filename
       @idea_file.save
-      @n = @n + 1
+ 
       @x = @x + 1
       
     end

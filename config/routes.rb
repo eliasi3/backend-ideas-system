@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
   
+  resources :razaos
   resources :mission_deptos
   resources :reset_password
   resources :uploads

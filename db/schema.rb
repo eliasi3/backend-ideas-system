@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_210819) do
+ActiveRecord::Schema.define(version: 2022_01_25_220648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(version: 2022_01_20_210819) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "campos", force: :cascade do |t|
+    t.string "cam_nome"
+    t.string "cam_tipo"
+    t.string "ies_ordem"
+    t.string "ies_obrigatorio"
+    t.bigint "mission_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mission_id"], name: "index_campos_on_mission_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -84,6 +95,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_210819) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "razao_id"
     t.string "ies_status"
+    t.string "idea_valor"
     t.index ["category_id"], name: "index_ideas_on_category_id"
     t.index ["mission_id"], name: "index_ideas_on_mission_id"
     t.index ["user_id"], name: "index_ideas_on_user_id"
@@ -140,8 +152,23 @@ ActiveRecord::Schema.define(version: 2022_01_20_210819) do
     t.index ["dept_id"], name: "index_users_on_dept_id"
   end
 
+  create_table "valores", force: :cascade do |t|
+    t.string "val_dec"
+    t.string "val_cha"
+    t.string "val_tex"
+    t.string "val_dat"
+    t.string "val_fil"
+    t.bigint "campos_id", null: false
+    t.bigint "ideas_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["campos_id"], name: "index_valores_on_campos_id"
+    t.index ["ideas_id"], name: "index_valores_on_ideas_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "campos", "missions"
   add_foreign_key "comments", "ideas"
   add_foreign_key "comments", "users"
   add_foreign_key "idea_files", "ideas"
@@ -153,4 +180,6 @@ ActiveRecord::Schema.define(version: 2022_01_20_210819) do
   add_foreign_key "missions", "depts"
   add_foreign_key "missions", "users"
   add_foreign_key "users", "depts"
+  add_foreign_key "valores", "campos", column: "campos_id"
+  add_foreign_key "valores", "ideas", column: "ideas_id"
 end

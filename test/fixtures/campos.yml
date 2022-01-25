@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cam_nome: MyString
+  cam_tipo: MyString
+  ies_ordem: MyString
+  ies_obrigatorio: MyString
+  mission: one
+
+two:
+  cam_nome: MyString
+  cam_tipo: MyString
+  ies_ordem: MyString
+  ies_obrigatorio: MyString
+  mission: two

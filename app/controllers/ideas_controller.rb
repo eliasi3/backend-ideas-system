@@ -61,6 +61,7 @@ class IdeasController < ApplicationController
     @idea.mission_id = params[:mission_id]
     @idea.user_id = params[:user_id]
     @idea.ies_status = params[:ies_status]
+    @idea.idea_valor = params[:idea_valor]
     
     @idea.save
     
@@ -110,6 +111,6 @@ class IdeasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def idea_params
-      params.require(:idea).permit(:idea_name, :idea_description, :category_id, :mission_id, :user_id, :ies_status, :razao_id)
+      params.require(:idea).permit(:idea_name, :idea_description, :category_id, :mission_id, :user_id, :ies_status, :razao_id, :idea_valor)
     end
 end

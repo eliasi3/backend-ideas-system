@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  val_dec: MyString
+  val_cha: MyString
+  val_tex: MyString
+  val_dat: MyString
+  val_fil: MyString
+  campos: one
+  ideas: one
+
+two:
+  val_dec: MyString
+  val_cha: MyString
+  val_tex: MyString
+  val_dat: MyString
+  val_fil: MyString
+  campos: two
+  ideas: two

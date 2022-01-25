@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   
   
+  resources :valores
+  resources :campos
   resources :razaos
   resources :mission_deptos
   resources :reset_password

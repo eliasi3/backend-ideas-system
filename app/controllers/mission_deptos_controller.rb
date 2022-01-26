@@ -3,7 +3,17 @@ class MissionDeptosController < ApplicationController
 
   # GET /mission_deptos
   def index
-    @mission_deptos = MissionDepto.all
+    @str = 'id > 0'
+    
+    if (!params[:dept_id].blank?)
+      @str += ' AND dept_id='+ params[:dept_id]
+    end
+    if (!params[:mission_id].blank?)
+      @str += ' AND mission_id='+ params[:mission_id]
+    end
+
+    @mission_deptos = MissionDepto.where(@str)
+
 
     render json: @mission_deptos
   end

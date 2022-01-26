@@ -12,6 +12,9 @@ class MissionsController < ApplicationController
       if (!params[:dept_id].blank?)
           @str += ' AND dept_id='+ params[:dept_id]
       end
+      if (!params[:ies_multi].blank?)
+          @str += ' AND ies_multi='+ params[:ies_multi]
+      end
       if (!params[:search].blank?)
         @str += " AND (UPPER(mis_name) LIKE '%"+params[:search].upcase+"%' OR UPPER(mis_description) LIKE '%"+params[:search].upcase+"%')"
       end

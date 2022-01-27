@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_25_220648) do
+ActiveRecord::Schema.define(version: 2022_01_26_173010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 2022_01_25_220648) do
     t.string "dat_limite"
     t.integer "ies_ativo"
     t.integer "ies_multi"
+    t.string "ies_adic_campos"
     t.index ["dept_id"], name: "index_missions_on_dept_id"
     t.index ["user_id"], name: "index_missions_on_user_id"
   end
